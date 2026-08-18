@@ -31,7 +31,7 @@ main{min-width:0;padding:30px}.wrap{max-width:1180px;margin:auto}
 </head>
 <body>
 <header class="top">
-  <div class="brand"><span class="logo">RRB</span><span>RRB Programming Academy<small>COURSE • MODULE • SUBBAB • EXERCISE</small></span></div>
+  <div class="brand"><span class="logo">RRB</span><span>RRB Programming Academy<small>COURSE • MODULE • EXERCISE</small></span></div>
   <div class="progress"><div class="prow"><span>Overall exercise progress</span><strong id="progressText">0/0</strong></div><div class="pbar"><div class="pfill" id="progressFill"></div></div></div>
 </header>
 <div class="app">
@@ -130,13 +130,7 @@ class ProgrammingAcademy {
         ${c.modules.map(x=>`<div class="outline-item ${x.title===m.title?"active":""}" data-module="${this.escapeAttr(x.title)}"><div class="onum">${x.no}</div><div class="otitle">${x.title}</div></div>`).join("")}
       </section>
 
-      <section class="module-head">
-        <div class="small">Module ${m.no}</div>
-        <h2>${m.title}</h2>
-        <p>${m.desc}</p>
-        <div class="notice"><b>Struktur baru:</b> Module → Subbab Materi → Soal 1–10. Mahasiswa membuka subbab, membaca source/starter code, kemudian mengerjakannya menggunakan IDE di device masing-masing. Tidak ada multiple choice.</div>
-      </section>
-      <div id="chapters"></div>
+      
     `;
 
     this.content.querySelectorAll("[data-module]").forEach(el=>el.onclick=()=>{
