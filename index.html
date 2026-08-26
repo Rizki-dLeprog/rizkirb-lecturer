@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="RRB Learning Hub - bahan ajar dan latihan untuk memahami konsep dan berlatih secara terstruktur.">
+<meta name="color-scheme" content="light dark">
+<title>RRB Learning Hub</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0f172a">
+<script>
+(() => {
+  try {
+    const saved = localStorage.getItem('dleprog-theme');
+    const theme = saved === 'dark' || saved === 'light'
+      ? saved
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.dataset.theme = theme;
+  } catch {
+    document.documentElement.dataset.theme = 'light';
+  }
+})();
+</script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img class="brand-mark" src="assets/logo.png" alt="Logo RRB" width="44" height="44" decoding="async">
+    <div class="brand-copy">
+      <div class="brand-title">RRB Learning Hub</div>
+      <div class="brand-course">Learn. Understand. Practice.</div>
+    </div>
+  </div>
+  <div class="search-wrap">
+    <label class="sr-only" for="searchInput">Search modules, topics, or exercises</label>
+    <span class="search-icon" aria-hidden="true">⌕</span>
+    <input class="search-input" id="searchInput" type="search" autocomplete="off" placeholder="Search modules, topics, or exercises">
+  </div>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+    <span class="theme-icon theme-icon-sun" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+    </span>
+    <span class="theme-icon theme-icon-moon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M20 15.2A8 8 0 0 1 8.8 4a8.2 8.2 0 1 0 11.2 11.2Z"/></svg>
+    </span>
+  </button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <nav aria-label="Course list">
+      <div class="side-label">Courses</div>
+      <div class="course-switcher" id="courseSwitcher"></div>
+    </nav>
+    <footer class="sidebar-footer">
+      <blockquote class="sidebar-quote">
+        <p>“The top experts in the world are ardent students. The day you stop learning, you're definitely not an expert.” <cite>- Brendon Burchard</cite></p>
+      </blockquote>
+      <div class="sidebar-copyright">© <span id="copyrightYear"></span> dleprog. All rights reserved.</div>
+    </footer>
+  </aside>
+
+  <button class="sidebar-toggle" id="mobileMenu" type="button" aria-label="Toggle course navigation" aria-expanded="false" aria-controls="sidebar" title="Toggle sidebar">
+    <span class="sidebar-toggle-icon sidebar-toggle-icon-open" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M9 5v14"/><path d="m13 9 3 3-3 3"/></svg>
+    </span>
+    <span class="sidebar-toggle-icon sidebar-toggle-icon-close" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M9 5v14"/><path d="m16 9-3 3 3 3"/></svg>
+    </span>
+  </button>
+
+  <main class="main" id="mainContent" tabindex="-1">
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">↑</button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/course-data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
