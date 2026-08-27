@@ -883,7 +883,9 @@ html[data-theme="dark"] .stat-exercises{background:rgba(244,63,94,.14);border-co
 
 @media(max-width:900px){
   .sidebar{width:min(84vw,296px)}
-  .sidebar.open + .sidebar-toggle{left:calc(min(84vw,296px) - 14px)}
+  /* Closed mobile handle stays attached to the left viewport edge. */
+  .sidebar-toggle{left:-1px;border-radius:0 9px 9px 0}
+  .sidebar.open + .sidebar-toggle{left:calc(min(84vw,296px) - 14px);border-radius:9px}
   .course-btn{grid-template-columns:35px minmax(0,1fr) 16px;min-height:55px}
   .course-icon{width:35px;height:35px}
   .course-icon svg{width:18px;height:18px}
@@ -1099,16 +1101,60 @@ body{font-kerning:normal}
 @media(max-width:900px){
   .course-strip{padding:22px 24px 23px}
   .course-strip h1{margin-top:9px;margin-bottom:7px}
-  .main-module-tabs{gap:6px}
-  .main-module-tab{padding:10px 6px}
-  .main-module-label{gap:3px}
+  .course-strip p{white-space:normal;overflow-wrap:break-word}
+
+  /* On phones/tablets, module navigation becomes a swipeable horizontal rail.
+     Keeping every module in one grid row made each card only a few pixels wide. */
+  .main-module-tabs{
+    display:flex;
+    grid-template-columns:none;
+    gap:8px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    overscroll-behavior-inline:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:2px 2px 9px;
+  }
+  .main-module-tabs::-webkit-scrollbar{display:none}
+  .main-module-tab{
+    flex:0 0 clamp(150px,31vw,190px);
+    width:auto;
+    min-width:150px;
+    padding:10px 9px;
+    scroll-snap-align:start;
+  }
+  .main-module-label{gap:4px}
+  .main-module-title{overflow-wrap:normal;word-break:normal;hyphens:none}
   .module-card{padding:23px 24px 24px}
 }
 @media(max-width:620px){
   .course-strip{padding:20px 17px 21px}
-  .main-module-tabs{gap:4px;margin-bottom:14px}
-  .main-module-tab{padding:8px 4px}
-  .main-module-label{gap:2px}
+  .course-hero-top{display:flex;flex-direction:column;gap:13px}
+  .course-meta{
+    position:static;
+    order:2;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+    gap:6px;
+    white-space:normal;
+  }
+  .course-stat{min-height:28px;padding:5px 8px;font-size:10px}
+  .course-stat strong{font-size:10.5px}
+  .course-strip h1{margin:7px 0 7px;font-size:clamp(27px,8.3vw,32px)}
+  .course-strip p{font-size:12.5px;line-height:1.5;white-space:normal}
+  .course-kicker{font-size:9.5px}
+  .main-module-tabs{gap:7px;margin-bottom:14px;padding-bottom:8px}
+  .main-module-tab{
+    flex-basis:clamp(138px,42vw,165px);
+    min-width:138px;
+    padding:9px 8px;
+    border-radius:12px;
+  }
+  .main-module-label{gap:4px}
+  .main-module-no{font-size:9px}
+  .main-module-title{font-size:10.5px;line-height:1.3}
   .module-card{padding:20px 17px 21px;margin-bottom:14px}
 }
 
@@ -1362,4 +1408,44 @@ html[data-theme="dark"] .topic-count{
   background:#1a3148;
   border-color:#3f5c79;
   color:#d8e4ef;
+}
+
+/* ===== dleprog UI Refinement v15: protect header title on narrow screens ===== */
+/* The brand title has priority. The search field yields width first on phones. */
+@media(max-width:620px){
+  .topbar{gap:8px}
+  .brand{flex:0 0 auto;min-width:max-content}
+  .brand-copy{max-width:none;min-width:max-content}
+  .brand-title{
+    max-width:none;
+    white-space:nowrap;
+    overflow:visible;
+    text-overflow:clip;
+  }
+  .search-wrap{
+    flex:1 1 0;
+    width:auto;
+    min-width:96px;
+    max-width:160px;
+  }
+}
+
+@media(max-width:460px){
+  .brand-copy{max-width:none}
+  .search-wrap{
+    flex:1 1 0;
+    width:auto;
+    min-width:92px;
+    max-width:132px;
+  }
+}
+
+@media(max-width:380px){
+  .brand-title{font-size:13px}
+  .search-wrap{min-width:84px;max-width:108px}
+}
+
+@media(max-width:340px){
+  .brand-title{font-size:12.5px}
+  .search-wrap{min-width:72px;max-width:88px}
 }
